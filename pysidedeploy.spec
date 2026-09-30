@@ -16,3 +16,5 @@ arch = aarch64
 
 [buildozer]
 mode = debug
+sdk_path = /home/runner/.pyside6_android_deploy/android-sdk
+ndk_path = /home/runner/.pyside6_android_deploy/android-ndk/android-ndk-r26b
