@@ -1,0 +1,53 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Install system packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git unzip zip autoconf automake libtool libltdl-dev pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev autopoint gettext
+
+      - name: Check Java and Python
+        run: |
+          java -version
+          python --version
+
+      - name: Build APK
+        run: |
+          chmod +x build_android.sh
+          ./build_android.sh
+
+      - name: Locate APK
+        run: |
+          find . -type f \( -name "*.apk" -o -name "*.aab" \) -print
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: musicDownload-debug
+          path: |
+            **/*.apk
+          if-no-files-found: error
