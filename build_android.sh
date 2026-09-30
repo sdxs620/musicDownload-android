@@ -31,31 +31,28 @@ echo "=== Install PySide6 ==="
 
 python -m pip install "PySide6==6.8.3"
 
-echo "=== Download PySide6 Android wheels ==="
+echo "=== Download official Qt Android wheels ==="
 
-qtpip download PySide6 --android --arch aarch64
+mkdir -p ../android-wheels
+cd ../android-wheels
 
-echo "=== Find Android wheels ==="
+wget -q --show-progress \
+    https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.8.3-6.8.3-cp311-cp311-android_aarch64.whl
 
-PYSIDE_WHEEL=$(find . -maxdepth 2 -type f -name "PySide6-*-android_*.whl" | head -n 1)
+wget -q --show-progress \
+    https://download.qt.io/official_releases/QtForPython/shiboken6/shiboken6-6.8.3-6.8.3-cp311-cp311-android_aarch64.whl
 
-SHIBOKEN_WHEEL=$(find . -maxdepth 2 -type f -name "shiboken6-*-android_*.whl" | head -n 1)
+PYSIDE_WHEEL="$PWD/PySide6-6.8.3-6.8.3-cp311-cp311-android_aarch64.whl"
 
-echo "PySide6 wheel:"
+SHIBOKEN_WHEEL="$PWD/shiboken6-6.8.3-6.8.3-cp311-cp311-android_aarch64.whl"
+
+echo "PySide6 Android wheel:"
 echo "$PYSIDE_WHEEL"
 
-echo "Shiboken6 wheel:"
+echo "Shiboken6 Android wheel:"
 echo "$SHIBOKEN_WHEEL"
 
-if [ -z "$PYSIDE_WHEEL" ]; then
-    echo "ERROR: PySide6 Android wheel not found"
-    exit 1
-fi
-
-if [ -z "$SHIBOKEN_WHEEL" ]; then
-    echo "ERROR: Shiboken6 Android wheel not found"
-    exit 1
-fi
+cd ../musicDownload-upstream
 
 echo "=== Build Android APK ==="
 
