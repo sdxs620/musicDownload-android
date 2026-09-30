@@ -20,27 +20,9 @@ jobs:
           python-version: "3.11"
 
       - name: Install system packages
-  run: |
-    sudo apt-get update
-    sudo apt-get install -y \
-      git \
-      unzip \
-      zip \
-      openjdk-17-jdk \
-      autoconf \
-      automake \
-      libtool \
-      libltdl-dev \
-      pkg-config \
-      zlib1g-dev \
-      libncurses5-dev \
-      libncursesw5-dev \
-      libtinfo5 \
-      cmake \
-      libffi-dev \
-      libssl-dev \
-      autopoint \
-      gettext
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git unzip zip openjdk-17-jdk autoconf automake libtool libltdl-dev pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev autopoint gettext
 
       - name: Build APK
         run: |
