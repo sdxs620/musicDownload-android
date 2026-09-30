@@ -1,6 +1,17 @@
 #!/usr/bin/env bash
 set -e
+echo "=== Download Qt Android SDK/NDK ==="
 
+if [ ! -d "$HOME/.pyside6_android_deploy" ]; then
+    git clone --depth 1 --branch 6.8 https://code.qt.io/pyside/pyside-setup.git "$HOME/pyside-setup"
+    python -m pip install -r "$HOME/pyside-setup/requirements.txt"
+    python -m pip install -r "$HOME/pyside-setup/tools/cross_compile_android/requirements.txt"
+
+    python "$HOME/pyside-setup/tools/cross_compile_android/main.py" \
+        --download-only \
+        --skip-update \
+        --auto-accept-license
+fi
 echo "=== Clone upstream project ==="
 
 if [ ! -d "musicDownload-upstream" ]; then
