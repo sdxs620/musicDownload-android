@@ -8,7 +8,7 @@ if [ ! -d "musicDownload-upstream" ]; then
 fi
 
 cd musicDownload-upstream
-
+cp ../main.py ./main.py
 echo "=== Create Python environment ==="
 
 python -m venv ../.venv
