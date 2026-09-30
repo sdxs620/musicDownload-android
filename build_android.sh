@@ -60,9 +60,6 @@ pyside6-android-deploy \
     --name "musicDownload" \
     --wheel-pyside "$PYSIDE_WHEEL" \
     --wheel-shiboken "$SHIBOKEN_WHEEL" \
-    --arch aarch64 \
     --force
-
 echo "=== Locate APK ==="
-
 find . -type f -name "*.apk" -print
